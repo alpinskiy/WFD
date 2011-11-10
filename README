@@ -1,0 +1,29 @@
+Installation
+============
+
+Copy all script files into WinDBG installation directory
+(it is "C:\Program Files\Debugging Tools for Windows (x64)\" on my installation).
+
+Running
+=======
+
+Open program to be debugged or attach to the running target.
+Issue "$$>a< dump_writes_to_file file1" command (lets assume we are interested in 'file1').
+You will see:
+
+Bp expression 'KERNEL32!CreateFileW' could not be resolved, adding deferred bp
+Bp expression 'KERNEL32!WriteFile' could not be resolved, adding deferred bp
+Bp expression 'KERNEL32!CloseHandle' could not be resolved, adding deferred bp
+All writes to the file "*file1" will be dumped.
+
+First three lines will absent if KERNEL32 already loaded.
+Press F5 or type 'g' and press <Enter> in command window. Program execution begins.
+You will see the output like this if writes to the specified file occure:
+
+#3944 -> CreateFile "file1"
+#3944 <- 0x00000040
+#3944 WriteFile (11 bytes), HANDLE 0x00000040, 0058fdfc  "0123456789"
+#3944 WriteFile (11 bytes), HANDLE 0x00000040, 0058fdfc  "0123456789"
+#3944 WriteFile (11 bytes), HANDLE 0x00000040, 0058fdfc  "0123456789"
+#3944 CloseHandle 0x00000040
+
