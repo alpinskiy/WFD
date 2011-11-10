@@ -1,0 +1,14 @@
+.if (@$t0=0 and ${/d:$arg1})
+{
+	aS /mu ${/v:fn} poi(@esp+4)
+	.block
+	{
+		.if ($spat("${fn}", "*${$arg1}"))
+		{
+			r $t0=@$tid
+			.printf "#%d -> CreateFile \"${fn}\"\n", @$tid
+			bp poi(@esp) "$$><save_handle; gc"
+		}
+		ad ${/n:fn}
+	}
+}

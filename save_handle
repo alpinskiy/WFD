@@ -1,0 +1,13 @@
+.if (@$t0=@$tid and @$t1=0)
+{
+	.if (@eax!=0n-1)
+	{
+		r $t1=@eax
+		.printf "#%d <- %#.8x\n", @$tid, @$t1
+	}
+	.else
+	{
+		r $t0=0
+		.printf "#%d <- INVALID_HANDLE_VALUE\n", @$tid
+	}
+}

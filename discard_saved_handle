@@ -1,0 +1,6 @@
+.if (@$t0=@$tid and poi(@esp+4)=@$t1)
+{
+	r $t0=0
+	r $t1=0
+	.printf "#%d CloseHandle %#.8x\n", @$tid, poi(@esp+4)
+}

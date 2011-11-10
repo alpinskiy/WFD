@@ -1,0 +1,10 @@
+.if (${/d:$arg1})
+{
+	r $t0=0
+	r $t1=0
+
+	bp KERNEL32!CreateFileW "$$>a<match_file_name_and_save_handle ${$arg1}; gc"
+	bp KERNEL32!WriteFile "$$><dump_writes_to_saved_handle; gc"
+	bp KERNEL32!CloseHandle "$$><discard_saved_handle; gc"
+	.printf "All writes to the file \"*${$arg1}\" will be dumped.\n"
+} 
